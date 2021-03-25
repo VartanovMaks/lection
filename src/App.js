@@ -10,15 +10,32 @@ function App() {
  
   //let counter =0;
   const [counter, setCounter] = useState(0);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(0);
+  const [todos, setTodos] = useState(['hello','react']);
   
   const clickHandler = ()=>{
     setCounter(counter+1);
-    console.log(counter);
   }
+
+  const toggleHeader = ()=>{
+    setIsHeaderVisible(!isHeaderVisible);
+  }
+  
+  const channgeSmthInTodos = ()=>{
+    const newArr = [...todos];
+    newArr[0] = Math.random();
+    setTodos(newArr);
+  }
+  
   return (
     <div className="App">
-        <Header counter = {counter}/>
+        
+        {isHeaderVisible && <Header counter = {counter}/>}
         <button onClick={clickHandler}> increment</button>
+        <button onClick={toggleHeader}> Toggle header </button>
+        <button onClick={channgeSmthInTodos}> Change Todo list </button>
+        <div>{todos[0]}</div>
+        <div>{todos[1]}</div>
     </div>
   );
 }
