@@ -42,9 +42,15 @@ const Header= ({counter}) => {
 //   }
 // }
 
-
-
-
+const TodoItem =({todo}) => (
+  <div>
+    {todo.title}
+    <br />
+    {todo.content}
+    <br />
+    <hr />
+  </div>  
+)
 
 function App() {
  
@@ -55,7 +61,10 @@ function App() {
   const [state,setState] = useState({
     counter:0,
     isHeaderVisible:true,
-    todos:['hello', 'react']
+    todos:[
+        {id:1, title:'hello', content:'react'},
+        {id:2, title:'by', content:'react'},
+        {id:3, title:'eat', content:'react'}]
   })
   
   const clickHandler = ()=>{
@@ -74,7 +83,7 @@ function App() {
   
   const channgeSmthInTodos = ()=>{
     const newArr = [...state.todos];
-    newArr[0] = Math.random();
+    newArr[0].title = Math.random();
     setState({
       ...state,
       todos:newArr
@@ -88,8 +97,22 @@ function App() {
         <button onClick={clickHandler}> increment</button>
         <button onClick={toggleHeader}> Toggle header </button>
         <button onClick={channgeSmthInTodos}> Change Todo list </button>
-        <div>{state.todos[0]}</div>
-        <div>{state.todos[1]}</div>
+
+        {state.todos
+          .map(todo=> <TodoItem key={todo.id} todo={todo}/>)
+  
+        }
+
+        {/* <div>
+          {state.todos[0].title}
+          <br />
+          {state.todos[0].content}
+        </div>
+        <div>
+          {state.todos[1].title}
+          <br />
+          {state.todos[1].content}
+        </div> */}
     </div>
   );
 }
