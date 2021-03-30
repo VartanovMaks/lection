@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 
+let interval;
 class Comp extends Component {
   
   componentDidMount() {
     console.log('child componentDidMount')
+    interval = setInterval( ()=>{
+      console.log('fetching daTA')
+    },2000)
   }
   
   componentWillUnmount() {
     console.log('child componentWillUnmount')
+    clearInterval(interval)
     
   }
   
@@ -46,9 +51,9 @@ incCounter = ()=>{
     {this.state.counter>5 && this.setState({counter:0})}
     return (
       <div>
-        <button onClick={this.incCounter}> Increment </button>
-        Hello react {this.state.counter}
-        <Comp />
+        <h1 onClick={this.incCounter}> Hello react {this.state.counter} </h1>
+         {/* !!this.state.counter - приведение к булевому типу!! */}
+        {!!(this.state.counter % 2) && <Comp />}
       </div>
     );
   }
